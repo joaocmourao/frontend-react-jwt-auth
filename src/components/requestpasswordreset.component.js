@@ -47,12 +47,13 @@ export default class RequestPasswordReset extends Component {
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.requestPasswordReset(this.state.email).then(
-        () => {
+        response => {
           
           this.setState({
-            message: "It has been sent a message to this email in order to reset the password of your account.",
-            loading: false
-          });
+            message: response.data.message,
+            loading: false,
+            successful: true
+            });
         },
         error => {
           const resMessage =
@@ -64,7 +65,8 @@ export default class RequestPasswordReset extends Component {
 
           this.setState({
             loading: false,
-            message: resMessage
+            message: resMessage,
+            successful: false
           });
         }
       );      
@@ -117,7 +119,14 @@ export default class RequestPasswordReset extends Component {
 
             {this.state.message && (
               <div className="form-group">
-                <div className="alert alert-danger" role="alert">
+                <div
+                  className={
+                    this.state.successful
+                      ? "alert alert-success"
+                      : "alert alert-danger"
+                  }
+                  role="alert"
+                >
                   {this.state.message}
                 </div>
               </div>
