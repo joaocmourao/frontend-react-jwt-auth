@@ -13,6 +13,7 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import RequestPasswordReset from "./components/requestpasswordreset.component"
+import ResetPassword from "./components/resetPassword.component"
 
 class App extends Component {
   constructor(props) {
@@ -123,6 +124,7 @@ class App extends Component {
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/login/reset" component={RequestPasswordReset} />
+            <Route path="/reset-password/:token" component={ResetPassword} />
           </Switch>
         </div>
       </div>

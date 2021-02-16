@@ -36,6 +36,13 @@ class AuthService {
     });
   }
 
+  resetPassword(token, password){
+    return axios.post(API_URL + "reset-password", {
+      token,
+      password
+    });
+  }
+
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
