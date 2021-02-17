@@ -14,7 +14,8 @@ import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import RequestPasswordReset from "./components/requestpasswordreset.component"
 import ResetPassword from "./components/resetPassword.component"
-import authService from "./services/auth.service";
+import ConfirmAccount from "./components/confirm.component"
+
 
 class App extends Component {
 
@@ -27,12 +28,14 @@ class App extends Component {
       showModeratorBoard: false,
       showAdminBoard: false,
       currentUser: undefined,
-      resetToken: false      
+      resetToken: false,
+      confirmationToken: false      
     };
   }
 
   componentDidMount() {
     this.checkResetToken();
+    this.checkConfirmToken();
     const user = AuthService.getCurrentUser();
 
     if (user) {
@@ -48,18 +51,27 @@ class App extends Component {
     AuthService.logout();
   }
 
-  setResetToken(resp){
-    this.setState({
-      resetToken: resp
-    });
-  }
-
   checkResetToken(){
     if(window.location.pathname.includes("/reset-password/"))
     {
-      authService.isTokenFromAUser(window.location.pathname.replace('/reset-password/','')).then(
+      AuthService.isTokenFromAUser(window.location.pathname.replace('/reset-password/','')).then(
         response => {
-          this.setResetToken(response); 
+          this.setState({
+            resetToken: response
+          });
+        }
+      );      
+    }    
+  }
+
+  checkConfirmToken(){
+    if(window.location.pathname.includes("/confirm/"))
+    {
+      AuthService.isConfirmTokenFromAUser(window.location.pathname.replace('/confirm/','')).then(
+        response => {
+          this.setState({
+            confirmationToken: response
+          });
         }
       );      
     }    
@@ -147,6 +159,7 @@ class App extends Component {
             {this.state.currentUser ? <Route path="/mod" component={BoardModerator} /> : null}
             {this.state.currentUser ? <Route path="/admin" component={BoardAdmin} /> : null}
             {this.state.resetToken  ? <Route path="/reset-password/:token" component={ResetPassword} /> : null}
+            {this.state.confirmationToken  ? <Route path="/confirm/:token" component={ConfirmAccount} /> : null}
           </Switch>
         </div>
       </div>

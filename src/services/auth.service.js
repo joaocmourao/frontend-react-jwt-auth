@@ -58,8 +58,33 @@ class AuthService {
     })
     .catch(error => {
       return false;
-    });
-      
+    });      
+  }
+
+  isConfirmTokenFromAUser(token){
+    return axios.get(API_URL + "check-confirm-token", {
+      params: {
+        token: token
+      }
+    })
+    .then(response => {
+     return response.data;
+    })
+    .catch(error => {
+      return false;
+    });      
+  }
+
+  comfirmAccount(token){
+    return axios
+      .get(API_URL + "sign-up/confirm", {
+        params: {
+          token: token
+        }
+      })
+      .then(response => {
+        return response.data;
+      });    
   }
   
 }
