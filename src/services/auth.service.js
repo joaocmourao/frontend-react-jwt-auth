@@ -46,6 +46,16 @@ class AuthService {
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('user'));;
   }
+
+  isTokenFromAUser(token){
+    axios.get(API_URL + "check-reset-token", {token}).then(response => {
+      return response.data;
+    })
+    .catch(error => {
+      return false;
+    });
+  }
+  
 }
 
 export default new AuthService();

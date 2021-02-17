@@ -14,6 +14,7 @@ import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 import RequestPasswordReset from "./components/requestpasswordreset.component"
 import ResetPassword from "./components/resetPassword.component"
+import authService from "./services/auth.service";
 
 class App extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class App extends Component {
     AuthService.logout();
   }
 
-  render() {
+   render() {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
 
     return (
@@ -119,12 +120,12 @@ class App extends Component {
             <Route exact path={["/", "/home"]} component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
             <Route path="/login/reset" component={RequestPasswordReset} />
-            <Route path="/reset-password/:token" component={ResetPassword} />
+            {this.state.currentUser ? <Route exact path="/profile" component={Profile}/> : null}
+            {this.state.currentUser ? <Route path="/user" component={BoardUser} /> : null}
+            {this.state.currentUser ? <Route path="/mod" component={BoardModerator} /> : null}
+            {this.state.currentUser ? <Route path="/admin" component={BoardAdmin} /> : null}
+            {authService.isTokenFromAUser(window.location.pathname.replace('/reset-password/','')) ? <Route path="/reset-password/:token" component={ResetPassword} /> : null}
           </Switch>
         </div>
       </div>
