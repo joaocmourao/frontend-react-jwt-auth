@@ -48,12 +48,18 @@ class AuthService {
   }
 
   isTokenFromAUser(token){
-    axios.get(API_URL + "check-reset-token", {token}).then(response => {
-      return response.data;
+    return axios.get(API_URL + "check-reset-token", {
+      params: {
+        token: token
+      }
+    })
+    .then(response => {
+     return response.data;
     })
     .catch(error => {
       return false;
     });
+      
   }
   
 }
