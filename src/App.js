@@ -111,8 +111,8 @@ class App extends Component {
 
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
+                <Link to={"/stock"} className="nav-link">
+                  My Stock
                 </Link>
               </li>
             )}
@@ -155,7 +155,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route path="/login/reset" component={RequestPasswordReset} />
             {this.state.currentUser ? <Route exact path="/profile" component={Profile}/> : null}
-            {this.state.currentUser ? <Route path="/user" component={BoardUser} /> : null}
+            {this.state.currentUser ? <Route path="/stock" component={BoardUser} /> : null}
             {this.state.currentUser ? <Route path="/mod" component={BoardModerator} /> : null}
             {this.state.currentUser ? <Route path="/admin" component={BoardAdmin} /> : null}
             {this.state.resetToken  ? <Route path="/reset-password/:token" component={ResetPassword} /> : null}
