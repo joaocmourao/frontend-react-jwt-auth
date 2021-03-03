@@ -7,7 +7,8 @@ import AuthService from "./services/auth.service";
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
+import News from "./components/news.component";
+import StockList from "./components/stocklist.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -88,8 +89,8 @@ class App extends Component {
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
+              <Link to={"/news"} className="nav-link">
+                News
               </Link>
             </li>
 
@@ -112,7 +113,15 @@ class App extends Component {
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/stock"} className="nav-link">
-                  My Stock
+                  Wallet
+                </Link>
+              </li>
+            )}
+
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/stocklist"} className="nav-link">
+                  Stock List
                 </Link>
               </li>
             )}
@@ -150,12 +159,13 @@ class App extends Component {
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
+            <Route exact path={["/", "/news"]} component={News} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route path="/login/reset" component={RequestPasswordReset} />
             {this.state.currentUser ? <Route exact path="/profile" component={Profile}/> : null}
             {this.state.currentUser ? <Route path="/stock" component={BoardUser} /> : null}
+            {this.state.currentUser ? <Route path="/stocklist" component={StockList} /> : null}
             {this.state.currentUser ? <Route path="/mod" component={BoardModerator} /> : null}
             {this.state.currentUser ? <Route path="/admin" component={BoardAdmin} /> : null}
             {this.state.resetToken  ? <Route path="/reset-password/:token" component={ResetPassword} /> : null}
