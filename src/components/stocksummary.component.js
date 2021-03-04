@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import UserService from "../services/user.service";
 
 
-export default class StockList extends Component {
+export default class StockSummary extends Component {
   constructor(props) {
     super(props);
 
@@ -31,22 +31,11 @@ export default class StockList extends Component {
 
   
   render() {
-    const listItems = this.state.content.map((d,index) =>
-        <a href={"stocksummary?"+d}> 
-           <li 
-                key={index}
-            >
-                {d}
-            </li>
-        </a>
-        );
 
     return (
       <div className="container">
         <header className="jumbotron">
-        <h3>Stock List</h3>
-          <h3>{listItems}</h3>
-          
+        <h3>Stock Summarry</h3>
        </header>
       </div>
     );

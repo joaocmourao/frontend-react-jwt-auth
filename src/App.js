@@ -9,6 +9,7 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import News from "./components/news.component";
 import StockList from "./components/stocklist.component";
+import StockSummary from "./components/stocksummary.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -166,6 +167,7 @@ class App extends Component {
             {this.state.currentUser ? <Route exact path="/profile" component={Profile}/> : null}
             {this.state.currentUser ? <Route path="/stock" component={BoardUser} /> : null}
             {this.state.currentUser ? <Route path="/stocklist" component={StockList} /> : null}
+            {this.state.currentUser ? <Route path="/stocksummary" component={StockSummary} /> : null}
             {this.state.currentUser ? <Route path="/mod" component={BoardModerator} /> : null}
             {this.state.currentUser ? <Route path="/admin" component={BoardAdmin} /> : null}
             {this.state.resetToken  ? <Route path="/reset-password/:token" component={ResetPassword} /> : null}
